@@ -1,38 +1,24 @@
 <?php
 namespace Backend\Source\Models;
 
-class User extends \Phalcon\Mvc\Model
+class Role extends \Phalcon\Mvc\Model
 {
+
+    Const USER_APP = 1;
+    Const USER_BANNED = 2;
 
     /**
      *
      * @var integer
      */
-    public $userId;
+    public $role_id;
 
     /**
      *
      * @var string
      */
-    public $role;
+    public $title;
 
-    /**
-     *
-     * @var string
-     */
-    public $name;
-
-    /**
-     *
-     * @var string
-     */
-    public $password;
-
-    /**
-     *
-     * @var string
-     */
-    public $email;
 
     /**
      * Allows to query a set of records that match the specified conditions
@@ -63,12 +49,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-//        $this->hasMany('userId', '\Backend\Source\Models\Claimed', 'userId', ['alias' => 'Claimed']);
-//        $this->hasMany('userId', '\Backend\Source\Models\Device', 'userId', ['alias' => 'Device']);
-//        $this->hasMany('userId', '\Backend\Source\Models\Favoriteestablishment', 'userId',
-//            ['alias' => 'Favoriteestablishment']);
-//        $this->hasMany('userId', '\Backend\Source\Models\Usercompany', 'userId', ['alias' => 'Usercompany']);
-//        $this->hasOne('role', '\Backend\Source\Models\Role', 'id', ['alias' => 'Role']);
+        $this->hasMany('role_id', '\Backend\Source\Models\AppUser', 'role_id', ['alias' => 'User']);
     }
 
     /**
@@ -78,7 +59,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'user';
+        return 'role';
     }
 
 }

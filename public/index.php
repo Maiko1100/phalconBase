@@ -10,7 +10,6 @@ define('UPLOADS_PATH', realpath('uploads'));
 //    'http' . ($_SERVER['HTTPS']) ? 's' : '' . '://' . $_SERVER['SERVER_NAME'] . DIRECTORY_SEPARATOR . 'uploads');
 
 try {
-//    include_once '../vendor/autoload.php';
     /**ßß
      */
     // $config = include APP_PATH . "/apps/modules/frontend/config/config.php";

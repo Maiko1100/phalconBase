@@ -1,9 +1,8 @@
 <?php
 namespace Backend\Api\Controllers;
 
-
+use Backend\Source\Models\AppUser;
 use Backend\Source\Components\ResponseUtils;
-use Backend\Source\Models\User;
 
 class UserController extends ControllerBase
 {
@@ -12,9 +11,10 @@ class UserController extends ControllerBase
      */
     public function indexAction()
     {
-        $users = User::find();
-        ResponseUtils::sendResponse(ResponseUtils::STATUS_OK, $users);
+        $users = AppUser::find();
 
+
+        $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $users);
 
     }
 }

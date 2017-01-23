@@ -14,6 +14,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Mvc\Model\Manager as ModelsManager;
+use Backend\Source\Components\ResponseUtils;
 
 /**
  * The FactoryDefault Dependency Injector automatically registers the right services to provide a full stack framework
@@ -26,8 +27,8 @@ $di = new FactoryDefault();
 $di->setShared('router', function () {
     $router = new Router();
 
-    $router->setDefaultModule('manager');
-    $router->setDefaultNamespace('Backend\Manager\Controllers');
+    $router->setDefaultModule('api');
+    $router->setDefaultNamespace('Backend\Api\Controllers');
 
     return $router;
 });
@@ -97,7 +98,12 @@ $di->setShared('view', function () use ($config) {
 
 //Actives the modelsManager
 $di->set('modelsManager', function() {
-     return new ModelsManager();
+    return new ModelsManager();
+});
+
+//Actives the Response
+$di->set('responseUtil', function() {
+    return new ResponseUtils();
 });
 
 /**
@@ -147,7 +153,7 @@ $di->set('flash', function () {
  */
 $di->setShared('dispatcher', function () use ($di) {
     $dispatcher = new Phalcon\Mvc\Dispatcher();
-    $dispatcher->setDefaultNamespace('Backend\Manager\Controllers');
+    $dispatcher->setDefaultNamespace('Backend\Api\Controllers');
 
     return $dispatcher;
 });

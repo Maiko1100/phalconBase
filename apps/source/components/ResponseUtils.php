@@ -23,6 +23,10 @@ class ResponseUtils
     const STATUS_USER_BLOCKED    = 1000;
 
 
+    public function __construct() {
+
+    }
+
     /**
      * Function to send a response.
      *
@@ -30,19 +34,19 @@ class ResponseUtils
      * @param $body         ,                Assoc array of data to send. Default is none.
      * @param $content_type ,        The content type to serve. Default is 'application/json'.
      */
-    public static function sendResponse($status = self::STATUS_OK, $body = [], $content_type = 'application/json')
+    public function sendResponse($status = self::STATUS_OK, $body = [], $content_type = 'application/json')
     {
         // Set the status
-        $status_header = 'HTTP/1.1 ' . $status . ' ' . self::getStatusCodeMessage($status);
+        $status_header = 'HTTP/1.1 ' . $status . ' ' . $this->getStatusCodeMessage($status);
         header($status_header);
         // and the content type
         header('Content-type: ' . $content_type);
 
-        if (self::doesReturn($status))
+        if ($this->doesReturn($status))
         {
             $result = [
                 'status'  => $status,
-                'message' => self::getStatusCodeMessage($status),
+                'message' => $this->getStatusCodeMessage($status),
                 'result'  => $body,
             ];
 
@@ -59,7 +63,7 @@ class ResponseUtils
      *
      * @return string, A message header for a status code.
      */
-    private static function getStatusCodeMessage($status)
+    private function getStatusCodeMessage($status)
     {
         $message = "";
         switch ($status)
@@ -114,7 +118,7 @@ class ResponseUtils
         return $message;
     }
 
-    private static function doesReturn($status)
+    private function doesReturn($status)
     {
         switch ($status)
         {
