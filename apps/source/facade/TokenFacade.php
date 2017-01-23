@@ -48,7 +48,7 @@ class TokenFacade extends Plugin
             return false;
         }
 
-        return true;
+        return $tokenObject;
 
     }
 

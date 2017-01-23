@@ -30,10 +30,12 @@ class ControllerBase extends Controller
         }
 
         $tokenFacade = new TokenFacade();
-
-        if(!$tokenFacade->checkToken($token)) {
+        $tokenObject = $tokenFacade->checkToken($token);
+        if(!$tokenObject) {
             $this->responseUtil->sendResponse(ResponseUtils::STATUS_UNAUTHORIZED, "Token expired or not found.");
         }
+
+        $this->appUser = $tokenObject->getRelated('User');
 
     }
 }

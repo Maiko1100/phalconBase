@@ -9,9 +9,9 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        $users = AppUser::find();
+        $user = $this->appUser;
 
-        $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $users->toArray());
+        $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $user->getRelated('Role'));
     }
 
 }
