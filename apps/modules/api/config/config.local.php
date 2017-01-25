@@ -6,7 +6,7 @@ return new \Phalcon\Config([
         'host'     => 'localhost',
         'username' => 'root',
         'password' => 'root',
-        'dbname'   => 'phalconbase',
+        'dbname'   => 'phalcondb',
         'charset'  => 'utf8mb4',
         'options'  => [
             PDO::ATTR_EMULATE_PREPARES  => false,
