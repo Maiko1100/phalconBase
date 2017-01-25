@@ -16,6 +16,27 @@ class AuthController extends ControllerBase
     }
 
 
+    public function testAction(){
+//
+//        $headers = apache_request_headers();
+//
+//        if(!isset($header['Authorization'])){
+//            return null;
+//        }
+//
+//        if(!strpos($, $findme);)
+
+        var_dump(apache_request_headers());
+        exit;
+
+        $response = new \Phalcon\Http\Request();
+        var_dump($this->request->getHeader("Authorization"));
+
+        exit;
+
+    }
+
+
     /**
      * Function handle the registeration of a new user
      */
