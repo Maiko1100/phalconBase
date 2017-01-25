@@ -17,4 +17,13 @@ class UserController extends ControllerBase
         $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $users);
 
     }
+
+    /**
+     * Index action
+     */
+    public function getAction()
+    {
+           $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $this->appUser->export());
+    }
+
 }

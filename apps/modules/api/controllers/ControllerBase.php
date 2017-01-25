@@ -32,7 +32,13 @@ class ControllerBase extends Controller
         $tokenFacade = new TokenFacade();
         $tokenObject = $tokenFacade->checkToken($token);
         if(!$tokenObject) {
-            $this->responseUtil->sendResponse(ResponseUtils::STATUS_UNAUTHORIZED, "Token expired or not found.");
+            $this->responseUtil->sendError(ResponseUtils::STATUS_UNAUTHORIZED, "Token expired or not found.");
+        }
+
+        $tokenRefreshed = $tokenFacade->refreshToken($tokenObject);
+
+        if(!$tokenRefreshed) {
+            $this->responseUtil->sendError(ResponseUtils::STATUS_INTERNAL_ERROR, "Token could not be refreshed");
         }
 
         $this->appUser = $tokenObject->getRelated('User');

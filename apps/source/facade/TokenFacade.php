@@ -33,6 +33,17 @@ class TokenFacade extends Plugin
 
     }
 
+    public function refreshToken($token){
+        $token->token_expire_date = $this->createExpireDate();
+
+        if(!$token->save()){
+            return false;
+        }
+
+        return $token->token;
+
+    }
+
     /**
      * @param $token
      * @return bool

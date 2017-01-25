@@ -27,6 +27,16 @@ class ResponseUtils
 
     }
 
+
+    public function sendOk($body = [], $content_type = 'application/json'){
+        $this->sendResponse(self::STATUS_OK, $body, $content_type);
+    }
+
+    public function sendError($status = self::STATUS_INTERNAL_ERROR, $body = [], $content_type = 'application/json'){
+        $this->sendResponse($status, $body, $content_type);
+    }
+
+
     /**
      * Function to send a response.
      *

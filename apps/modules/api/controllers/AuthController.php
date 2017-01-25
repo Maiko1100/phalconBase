@@ -21,7 +21,6 @@ class AuthController extends ControllerBase
      */
     public function registerAction()
     {
-
         $request = $this->request->getBasicAuth();
 
         $username = $request['username'];
@@ -30,19 +29,19 @@ class AuthController extends ControllerBase
         $this->checkRequiredParameter($username, $password);
 
         if (AppUser::findFirstByemail_address($username)) {
-            $this->responseUtil->sendResponse(ResponseUtils::STATUS_CONFLICT, "Emailaddress already registered");
+            $this->responseUtil->sendError(ResponseUtils::STATUS_CONFLICT, "Emailaddress already registered");
         }
 
         $user = $this->registerAppUser($username, $password);
 
         if(!$user){
-            $this->responseUtil->sendResponse(ResponseUtils::STATUS_INTERNAL_ERROR, "Error creating user");
+            $this->responseUtil->sendError(ResponseUtils::STATUS_INTERNAL_ERROR, "Error creating user");
         }
 
         $tokenFacade = new TokenFacade();
         $token = $tokenFacade->registerNewToken($user);
 
-        $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $token);
+        $this->responseUtil->sendOk($token);
 
     }
 
@@ -58,12 +57,12 @@ class AuthController extends ControllerBase
         $user = AppUser::findFirstByemail_address($username);
 
         if (!$user) {
-            $this->responseUtil->sendResponse(ResponseUtils::STATUS_NOT_FOUND, "User was not found");
+            $this->responseUtil->sendError(ResponseUtils::STATUS_NOT_FOUND, "User was not found");
         }
         $tokenFacade = new TokenFacade();
         $token = $tokenFacade->registerNewToken($user);
 
-        $this->responseUtil->sendResponse(ResponseUtils::STATUS_OK, $token);
+        $this->responseUtil->sendOk($token);
 
     }
 
