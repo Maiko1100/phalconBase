@@ -23,7 +23,7 @@ class ControllerBase extends Controller
      */
     private function authAppUser(){
 
-        $token = $this->request->get("token");
+        $token = $this->request->getHeader("token");
 
         if(empty($token)){
             $this->responseUtil->sendResponse(ResponseUtils::STATUS_BAD_REQUEST, "No token send");
