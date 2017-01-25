@@ -5,8 +5,8 @@ return new \Phalcon\Config([
         'adapter'  => 'Mysql',
         'host'     => 'localhost',
         'username' => 'root',
-        'password' => '',
-        'dbname'   => 'phalconbase',
+        'password' => 'root',
+        'dbname'   => 'phalcondb',
         'charset'  => 'utf8mb4',
         'options'  => [
             PDO::ATTR_EMULATE_PREPARES  => false,
