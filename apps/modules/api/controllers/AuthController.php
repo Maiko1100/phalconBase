@@ -22,16 +22,18 @@ class AuthController extends ControllerBase
     public function registerAction()
     {
 
-        $emailAddress = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $request = $this->request->getBasicAuth();
 
-        $this->checkRequiredParameter($emailAddress, $password);
+        $username = $request['username'];
+        $password = $request['password'];
 
-        if (AppUser::findFirstByemail_address($emailAddress)) {
+        $this->checkRequiredParameter($username, $password);
+
+        if (AppUser::findFirstByemail_address($username)) {
             $this->responseUtil->sendResponse(ResponseUtils::STATUS_CONFLICT, "Emailaddress already registered");
         }
 
-        $user = $this->registerAppUser($emailAddress, $password);
+        $user = $this->registerAppUser($username, $password);
 
         if(!$user){
             $this->responseUtil->sendResponse(ResponseUtils::STATUS_INTERNAL_ERROR, "Error creating user");
@@ -46,12 +48,14 @@ class AuthController extends ControllerBase
 
     public function loginAction()
     {
-        $emailAddress = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $request = $this->request->getBasicAuth();
 
-        $this->checkRequiredParameter($emailAddress, $password);
+        $username = $request['username'];
+        $password = $request['password'];
 
-        $user = AppUser::findFirstByemail_address($emailAddress);
+        $this->checkRequiredParameter($username, $password);
+
+        $user = AppUser::findFirstByemail_address($username);
 
         if (!$user) {
             $this->responseUtil->sendResponse(ResponseUtils::STATUS_NOT_FOUND, "User was not found");
@@ -88,7 +92,7 @@ class AuthController extends ControllerBase
     private function checkRequiredParameter($emailAddress, $password)
     {
         if (empty($emailAddress) || empty($password)) {
-            $this->responseUtil->sendResponse(ResponseUtils::STATUS_BAD_REQUEST, "Test");
+            $this->responseUtil->sendResponse(ResponseUtils::STATUS_BAD_REQUEST, "Parameters not found");
         }
     }
 
